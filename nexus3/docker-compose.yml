@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  ap:
+    image: sonatype/nexus3
+    volumes:
+      - data-vol:/sonatype-work
+    ports:
+      - "8081:8081"
+
+volumes:
+  data-vol:
+
