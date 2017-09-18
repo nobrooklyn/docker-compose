@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gogs
+      MYSQL_USER: gogs
+      MYSQL_PASSWORD: gogs
+    volumes:
+      - db-vol:/var/lib/mysql
+    restart: always
+
+  ap:
+    image: gogs/gogs
+    ports:
+      - "3000:3000"
+      - "10022:22"
+    volumes:
+      - data-vol:/data
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  db-vol:
+  data-vol:
